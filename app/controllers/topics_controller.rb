@@ -6,14 +6,19 @@ class TopicsController < ApplicationController
   def create
     @topic = Topic.new(topic_params)
     @topic.save
-    # TODO: スレたてと同時にコメントも投稿させる目論見だが、もうちょい改良できそう
+    # スレたてと同時にコメントも投稿させる、もうちょい改良できそう
     @comment = @topic.comments.build(comment_params)
-    @comment.save
-    flash[:notice] = '新しいスレッドを立てました'
-    redirect_to @topic
+    if @comment.save
+      flash[:notice] = '新しいスレッドを立てました'
+      redirect_to @topic
+    else
+      flash[:error] = "タイトル、名前、本文は必ず入力してください"
+      redirect_to topics_path
+    end
   end
 
-  # TODO: バリデーションの挙動を追加
+  # TODO: 管理者用ログインページを作る
+  # TODO: 管理者はスレッドの削除(編集はいらないかも知れないけど一応)できるようにさせる
 
   def show
     @topic = Topic.find(params[:id])
