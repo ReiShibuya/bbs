@@ -1,0 +1,19 @@
+<h1>掲示板</h1>
+<h3>スレッドタイトル</h3>
+<h3><%= @topic.title %></h3>
+<ol>
+  <% @topic.comments.each do |comment| %>
+    <li>
+      <%= comment.name %> :<%= comment.updated_at %><br>
+      <%= comment.content %>
+    </li>
+  <% end %>
+</ol>
+<h2>こっちが本物</h2>
+<%= form_with(model: [ @topic, @topic.comments.build ], local: true) do |form| %>
+  <%= form.label :name, '名前' %><br>
+  <%= form.text_field :name %><br>
+  <%= form.label :content, '本文' %><br>
+  <%= form.text_area :content %><br>
+  <%= form.submit 'スレッドに書き込む' %>
+<% end %>
