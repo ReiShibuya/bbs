@@ -1,11 +1,11 @@
-<h1>掲示板</h1>
 <h3>スレッドタイトル</h3>
 <h3><%= @topic.title %></h3>
 <ol>
   <% @topic.comments.each do |comment| %>
     <li>
       <%= comment.name %> :<%= comment.updated_at %><br>
-      <%= comment.content %>
+      <%= comment.content %><br>
+      <a href="#">削除</a>
     </li>
   <% end %>
 </ol>

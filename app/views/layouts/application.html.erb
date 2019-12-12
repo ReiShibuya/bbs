@@ -13,6 +13,7 @@
     <% flash.each do |name, msg| %>
       <%= content_tag :div, msg, class: name %>
     <% end %>
+    <h1><%= link_to '掲示板', root_path %></h1>
     <%= yield %>
   </body>
 </html>
