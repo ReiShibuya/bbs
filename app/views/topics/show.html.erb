@@ -5,11 +5,12 @@
     <li>
       <%= comment.name %> :<%= comment.updated_at %><br>
       <%= comment.content %><br>
-      <a href="#">削除</a>
+      <% #TODO なぜ削除の用のlink_toに配列で渡すのか分からないので理解する %>
+      <%= link_to '削除', [comment.topic, comment], method: :delete, data: { confirm: 'コメントを削除してよろしいですか'} %>
     </li>
   <% end %>
 </ol>
-<h2>こっちが本物</h2>
+<h2>コメントする</h2>
 <%= form_with(model: [ @topic, @topic.comments.build ], local: true) do |form| %>
   <%= form.label :name, '名前' %><br>
   <%= form.text_field :name %><br>

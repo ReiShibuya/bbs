@@ -10,6 +10,14 @@ class CommentsController < ApplicationController
     redirect_to topic_path(@topic)
   end
 
+  def destroy
+    @topic = Topic.find(params[:topic_id])
+    @comment = Comment.find(params[:id])
+    @comment.destroy
+    flash[:delete] = 'コメントを削除しました'
+    redirect_to topic_path(@topic)
+  end
+
   # TODO: 管理者ページを作る
 
   private

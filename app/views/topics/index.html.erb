@@ -2,11 +2,11 @@
   <% @topics.each do |topic| %>
     <li>
       <%= link_to topic.title, topic_path(topic) %><br>
-      <a href="#">削除</a>
+      <%= link_to '削除', topic_path(topic), method: :delete, data: { confirm: 'スレッドを削除してよろしいですか'} %>
     </li>
   <% end %>
 </ol>
-<h2>スレッドを立てる(エラーメッセージ表示は後で)</h2>
+<h2>スレッドを立てる</h2>
 <%= form_with scope: :topic, url: topics_path, local: true do |form| %>
   <%= form.label :title, 'タイトル' %><br>
   <%= form.text_field :title %><br>
