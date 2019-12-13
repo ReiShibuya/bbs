@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  # http_basic_authenticate_with name: "ddh", password: "secret", only: :destroy
+
   def create
     @topic = Topic.find(params[:topic_id])
     @comment = @topic.comments.build(comment_params)
@@ -22,6 +24,7 @@ class CommentsController < ApplicationController
 
   private
     def comment_params
+      # TODO: コメント欄の名前が未入力の場合はデフォルトネームを入れるようにする(名無しさん)
       params.require(:comment).permit(:name, :content)
     end
 end

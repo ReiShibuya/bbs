@@ -1,14 +1,15 @@
 class TopicsController < ApplicationController
+  # http_basic_authenticate_with name: "ddh", password: "secret", only: :destroy
+
   def index
     @topics = Topic.all
   end
 
   def create
     @topic = Topic.new(topic_params)
-    @topic.save
     # スレたてと同時にコメントも投稿させる、もうちょい改良できそう
     @comment = @topic.comments.build(comment_params)
-    if @comment.save
+    if @topic.save && @comment.save
       flash[:notice] = '新しいスレッドを立てました'
       redirect_to @topic
     else
@@ -37,6 +38,7 @@ class TopicsController < ApplicationController
     end
 
     def comment_params
+      # TODO: コメント欄の名前が未入力の場合はデフォルトネームを入れるようにする(名無しさん)
       params.require(:topic).permit(:name, :content)
     end
 end

@@ -10,7 +10,7 @@
 <%= form_with scope: :topic, url: topics_path, local: true do |form| %>
   <%= form.label :title, 'タイトル' %><br>
   <%= form.text_field :title %><br>
-  <%= form.label :name, '名前' %><br>
+  <%= form.label :name, '名前'%><br>
   <%= form.text_field :name %><br>
   <%= form.label :content, '本文' %><br>
   <%= form.text_area :content, rows: 10, cols: 30 %><br>
