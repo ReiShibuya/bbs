@@ -1,0 +1,36 @@
+@import '~bootstrap/scss/bootstrap';
+
+// body {
+//   background-color: aqua;
+// }
+
+// a {
+//   text-decoration: none;
+// }
+
+.notice {
+  color: white;
+  border: green;
+  background: rgb(93, 241, 93);
+  font-size: 1.5rem;
+  border-radius: 1rem;
+  padding: 0.3rem;
+}
+
+.error {
+  color: white;
+  border: red;
+  background: rgb(245, 88, 88);
+  font-size: 1.5rem;
+  border-radius: 1rem;
+  padding: 0.3rem;
+}
+
+.dlt {
+  color: white;
+  border: red;
+  background: rgb(88, 104, 245);
+  font-size: 1.5rem;
+  border-radius: 1rem;
+  padding: 0.3rem;
+}

@@ -24,7 +24,7 @@ class CommentsController < ApplicationController
 
   private
     def comment_params
-      # TODO: コメント欄の名前が未入力の場合はデフォルトネームを入れるようにする(名無しさん)
+      # HACK: コメント欄の名前が未入力の場合はデフォルトネームを入れるようにする(名無しさん)
       params.require(:comment).permit(:name, :content)
     end
 end

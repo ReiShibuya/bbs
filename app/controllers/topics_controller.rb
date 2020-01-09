@@ -2,7 +2,12 @@ class TopicsController < ApplicationController
   # http_basic_authenticate_with name: "ddh", password: "secret", only: :destroy
 
   def index
-    @topics = Topic.all
+    # Topicに付いた一番最後のcommentの日付(created_atかupdated_at)の新しい順で並び替えたい
+    @topics = Topic.includes(:comments).order("comments.updated_at DESC")
+    # TODO: 何故Topicを最後に付いたコメントが新しい順に並べて表示することができたか解明すること
+    # ↑の原理はTopicにそれぞれ対応しているCommentを全て取り出しupdated_atを降順で並び替えている
+    # 全Topicが最後に付いたCommentの降順で並んでいるのは副作用かもしれない
+    # あるいは降順で並び替えたCommentの一番上のupdated_atで判断を下しているかも
   end
 
   def create
@@ -38,7 +43,6 @@ class TopicsController < ApplicationController
     end
 
     def comment_params
-      # TODO: コメント欄の名前が未入力の場合はデフォルトネームを入れるようにする(名無しさん)
       params.require(:topic).permit(:name, :content)
     end
 end

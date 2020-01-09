@@ -1,18 +1,23 @@
 <ol>
   <% @topics.each do |topic| %>
     <li>
-      <%= link_to topic.title, topic_path(topic) %><br>
-      <%= link_to '削除', topic_path(topic), method: :delete, data: { confirm: 'スレッドを削除してよろしいですか'} %>
+      <%= link_to topic.title, topic_path(topic), class: "text-dark" %>(<%= topic.comments.count %>) | 
+      <%= link_to '削除', topic_path(topic), method: :delete, data: { confirm: 'スレッドを削除してよろしいですか'}, class: "text-danger" %>
+      <br><div class="border border-dark">後で消す(デバッグ用)→<%= topic.comments.inspect %></div>
     </li>
   <% end %>
 </ol>
-<h2>スレッドを立てる</h2>
-<%= form_with scope: :topic, url: topics_path, local: true do |form| %>
-  <%= form.label :title, 'タイトル' %><br>
-  <%= form.text_field :title %><br>
-  <%= form.label :name, '名前'%><br>
-  <%= form.text_field :name %><br>
-  <%= form.label :content, '本文' %><br>
-  <%= form.text_area :content, rows: 10, cols: 30 %><br>
-  <%= form.submit 'スレッドを立てる' %>
-<% end %>
+<div class="border-top border-dark pt-4 pb-4">
+  <h2>スレッドを立てる</h2>
+</div>
+<div class="form-group">
+  <%= form_with scope: :topic, url: topics_path, local: true do |form| %>
+    <%= form.label :title, 'タイトル' %><br>
+    <%= form.text_field :title, class: "form-control" %><br>
+    <%= form.label :name, '名前'%><br>
+    <%= form.text_field :name, class: "form-control" %><br>
+    <%= form.label :content, '本文' %><br>
+    <%= form.text_area :content, rows: 10, cols: 30, class: "form-control" %><br>
+    <%= form.submit 'スレッドを立てる', class: "btn btn-primary" %>
+  <% end %>
+</div>
