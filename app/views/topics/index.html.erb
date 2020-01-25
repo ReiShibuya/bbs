@@ -6,6 +6,8 @@
       <br><div class="border border-dark">後で消す(デバッグ用)→<%= topic.comments.inspect %></div>
     </li>
   <% end %>
+  <% # TODO:paginateにbootstrap適用&日本語化 %>
+  <%= will_paginate %>
 </ol>
 <div class="border-top border-dark pt-4 pb-4">
   <h2>スレッドを立てる</h2>

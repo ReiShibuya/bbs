@@ -3,7 +3,9 @@ class CommentsController < ApplicationController
 
   def create
     @topic = Topic.find(params[:topic_id])
-    @comment = @topic.comments.build(comment_params)
+    # @comment = @topic.comments.build(comment_params)
+    @comment = @topic.comments.new(comment_params)
+    @comment.set_bolongs_id(@topic.comments.count + 1)
     if @comment.save
       flash[:notice] = 'コメントしました'
     else
@@ -12,11 +14,13 @@ class CommentsController < ApplicationController
     redirect_to topic_path(@topic)
   end
 
+  # TODO: コメントの削除は削除したコメントに「このコメントは削除されました。」の本文が表示されるようにしたい
   def destroy
     @topic = Topic.find(params[:topic_id])
-    @comment = Comment.find(params[:id])
+    # @comment = Comment.find(params[:id])
+    @comment = @topic.comments.find(params[:id])
     @comment.destroy
-    flash[:delete] = 'コメントを削除しました'
+    flash[:dlt] = 'コメントを削除しました'
     redirect_to topic_path(@topic)
   end
 

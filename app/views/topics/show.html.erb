@@ -1,14 +1,22 @@
 <h3><%= @topic.title %></h3>
-<ol>
-  <% @topic.comments.each do |comment| %>
-    <li>
-      <%= comment.name %> :<%= comment.updated_at %><br>
+<% #TODO ol、liタグからdivかsectionタグに変更する。idの番号で表示するようにしたいから %>
+<div>
+  <% @comments.each_with_index do |comment, idx| %>
+    <div>
+      <% #コメントのidの数字を表示するとComment全体で数えたid番号が表示されてしまう %>
+      <% #どうにかして関連付けられたTopicで数えたときのid番号(1から始まる)を表示させたい %>
+      <% #each_with_indexで体裁は整えたが根本的な解決にはまだ遠い(ページネーションの挙動が、ページごとに1から表示になってしまう) %>
+      <%= idx + 1 %> : <%= comment.name %> :<%= comment.updated_at %><br>
       <%= comment.content %><br>
       <% #TODO なぜ削除用のlink_toに配列で渡すのか分からないので理解する %>
+      <% #多分、Commentに対応するTopicとCommentそのものを両方渡す必要があるからかも %>
+      <% #comment.topicとcommentを入れ替えるとsyntaxエラーが出るのは親であるTopicを先に渡していないから? %>
+      <% #検証でソースコードを確認すると「href="/topics/31/comments/22"」と出る。何となくは理解できた気がするがはっきりしない %>
       <%= link_to '削除', [comment.topic, comment], method: :delete, data: { confirm: 'コメントを削除してよろしいですか'}, class: "text-danger" %>
-    </li>
+    </div>
   <% end %>
-</ol>
+  <%= will_paginate @comments %>
+</div>
 <div class="border-top border-dark pt-4 pb-4">
   <h2>コメントする</h2>
 </div>

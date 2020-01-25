@@ -57,3 +57,7 @@ group :development, :test do
   gem 'hirb'
   gem 'hirb-unicode'
 end
+
+gem 'will_paginate'
+
+gem 'bootstrap-will_paginate'
