@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
     @topic = Topic.find(params[:topic_id])
     # @comment = @topic.comments.build(comment_params)
     @comment = @topic.comments.new(comment_params)
-    @comment.set_bolongs_id(@topic.comments.count + 1)
+    @comment.set_reid(@topic.comments.count + 1)
     if @comment.save
       flash[:notice] = 'コメントしました'
     else

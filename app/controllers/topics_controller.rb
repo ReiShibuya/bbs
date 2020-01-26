@@ -17,7 +17,7 @@ class TopicsController < ApplicationController
     # スレたてと同時にコメントも投稿させる、もうちょい改良できそう
     # @comment = @topic.comments.build(comment_params)
     @comment = @topic.comments.new(comment_params)
-    @comment.set_bolongs_id(1)
+    @comment.set_reid(1)
     if @topic.save && @comment.save
       flash[:notice] = '新しいスレッドを立てました'
       redirect_to @topic
