@@ -24,6 +24,10 @@ class CommentsController < ApplicationController
     redirect_to topic_path(@topic)
   end
 
+  def show
+    @comment = Comment.find(params[:id])
+  end
+
   # TODO: 管理者ページを作る
 
   private

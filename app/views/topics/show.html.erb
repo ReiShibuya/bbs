@@ -2,12 +2,23 @@
 <% #TODO ol、liタグからdivかsectionタグに変更する。idの番号で表示するようにしたいから %>
 <div>
   <% @comments.each do |comment| %>
-    <div>
+    <div class="mb-1">
       <% #コメントのidの数字を表示するとComment全体で数えたid番号が表示されてしまう %>
       <% #どうにかして関連付けられたTopicで数えたときのid番号(1から始まる)を表示させたい %>
       <% #each_with_indexで体裁は整えたが根本的な解決にはまだ遠い(ページネーションの挙動が、ページごとに1から表示になってしまう) %>
       <%= comment.reid %> : <%= comment.name %> :<%= comment.updated_at %><br>
-      <%= comment.content %><br>
+      <% # 返信の場合,ここにレスアンカーのリンクを表示させる。クリックすると返信先のコメントを個別に表示 %>
+      <% regex = />>\d+/ %>
+      <% if comment.content.match(regex) %>
+        <%# コメントからアンカーを切り取って変数に入れ、リンクの文章にする %>
+        <% anchor = comment.content.slice!(regex) %>
+        <% link = Comment.find_by(topic_id: @topic,reid: anchor.slice(/\d+/).to_i) %>
+        <%= link_to anchor, [comment.topic, link], method: :get %>
+        <%= comment.content %>
+      <% else %>
+        <%= comment.content %>
+      <% end %>
+      <br>
       <% #TODO なぜ削除用のlink_toに配列で渡すのか分からないので理解する %>
       <% #多分、Commentに対応するTopicとCommentそのものを両方渡す必要があるからかも %>
       <% #comment.topicとcommentを入れ替えるとsyntaxエラーが出るのは親であるTopicを先に渡していないから? %>
@@ -21,11 +32,5 @@
   <h2>コメントする</h2>
 </div>
 <div class="form-group">
-  <%= form_with(model: [ @topic, @topic.comments.build ], local: true) do |form| %>
-    <%= form.label :name, '名前' %><br>
-    <%= form.text_field :name, class: "form-control" %><br>
-    <%= form.label :content, '本文' %><br>
-    <%= form.text_area :content, class: "form-control" %><br>
-    <%= form.submit 'スレッドに書き込む', class: "btn btn-primary" %>
-  <% end %>
+  <%= render 'form' %>
 </div>

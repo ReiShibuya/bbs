@@ -1,0 +1,7 @@
+<%= form_with(model: [ @topic, @topic.comments.build ], local: true) do |form| %>
+  <%= form.label :name, '名前' %><br>
+  <%= form.text_field :name, class: "form-control" %><br>
+  <%= form.label :content, '本文' %><br>
+  <%= form.text_area :content, class: "form-control", placeholder: "返信するときは、コメントの先頭に「>>」に続けて返信したいコメントの番号を入力すること。(例: >>2)" %><br>
+  <%= form.submit 'スレッドに書き込む', class: "btn btn-primary" %>
+<% end %>
