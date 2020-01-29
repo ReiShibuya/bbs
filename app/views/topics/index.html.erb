@@ -7,7 +7,7 @@
     </li>
   <% end %>
   <% # TODO:paginateにbootstrap適用&日本語化 %>
-  <%= will_paginate %>
+  <%= will_paginate(renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer, class: 'mt-4') %>
 </ol>
 <div class="border-top border-dark pt-4 pb-4">
   <h2>スレッドを立てる</h2>
@@ -15,11 +15,11 @@
 <div class="form-group">
   <%= form_with scope: :topic, url: topics_path, local: true do |form| %>
     <%= form.label :title, 'タイトル' %><br>
-    <%= form.text_field :title, class: "form-control" %><br>
+    <%= form.text_field :title, class: "form-control", placeholder: "スレッドのタイトルを入力してください。" %><br>
     <%= form.label :name, '名前'%><br>
-    <%= form.text_field :name, class: "form-control" %><br>
+    <%= form.text_field :name, class: "form-control", placeholder: "名無しさん" %><br>
     <%= form.label :content, '本文' %><br>
-    <%= form.text_area :content, rows: 10, cols: 30, class: "form-control" %><br>
+    <%= form.text_area :content, rows: 10, cols: 30, class: "form-control", placeholder: "コメントの本文を入力してください。" %><br>
     <%= form.submit 'スレッドを立てる', class: "btn btn-primary" %>
   <% end %>
 </div>
