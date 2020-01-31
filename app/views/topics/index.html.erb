@@ -2,11 +2,13 @@
   <% @topics.each do |topic| %>
     <li>
       <%= link_to topic.title, topic_path(topic), class: "text-dark" %>(<%= topic.comments.count %>) | 
-      <%= link_to '削除', topic_path(topic), method: :delete, data: { confirm: 'スレッドを削除してよろしいですか'}, class: "text-danger" %>
+      <% if current_user %>
+        <%= link_to '削除', topic_path(topic), method: :delete, data: { confirm: 'スレッドを削除してよろしいですか'}, class: "text-danger" %>
+      <% end %>
       <br><div class="border border-dark">後で消す(デバッグ用)→<%= topic.comments.inspect %></div>
     </li>
   <% end %>
-  <% # TODO:paginateにbootstrap適用&日本語化 %>
+  <% # TODO:paginateに日本語化 %>
   <%= will_paginate(renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer, class: 'mt-4') %>
 </ol>
 <div class="border-top border-dark pt-4 pb-4">

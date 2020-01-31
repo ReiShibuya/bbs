@@ -21,8 +21,10 @@
       <% #comment.topicとcommentを入れ替えるとsyntaxエラーが出るのは親であるTopicを先に渡していないから? %>
       <% #検証でソースコードを確認すると「href="/topics/31/comments/22"」と出る。何となくは理解できた気がするがはっきりしない %>
       <% #下のupdate(削除)のメソッドはpatchでもputでも動いた %>
-      <%= link_to '削除', [comment.topic, comment], method: :patch, data: { confirm: 'コメントを削除してよろしいですか'}, class: "text-danger" %>
-      <%# link_to '消去', [comment.topic, comment], method: :delete, data: { confirm: 'コメントを消去してよろしいですか'}, class: "text-danger" %>
+      <% if current_user %>
+        <%= link_to '削除', [comment.topic, comment], method: :patch, data: { confirm: 'コメントを削除してよろしいですか'}, class: "text-danger" %>
+        <%= link_to '消去', [comment.topic, comment], method: :delete, data: { confirm: 'コメントを消去してよろしいですか'}, class: "text-danger" %>
+      <% end %>
     </div>
   <% end %>
 </div>

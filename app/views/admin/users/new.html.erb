@@ -1,0 +1,7 @@
+<h1>ユーザー登録</h1>
+
+<nav class="justify-content-end">
+  <%= link_to '一覧', admin_users_path, class: 'nav-link' %>
+</nav>
+
+<%= render partial: 'form', locals: { user: @user } %>

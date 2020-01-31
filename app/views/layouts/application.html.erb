@@ -10,9 +10,16 @@
   </head>
 
   <body>
-    <header class="bg-dark p-2">
+    <nav class="navbar navbar-dark bg-dark p-2">
       <h1 class="ml-3"><%= link_to '掲示板', root_path, class: "text-white" %></h1>
-    </header>
+      <% if current_user %>
+        <%= link_to "ユーザー情報編集", '#', class: "nav-link" %>
+        <%= link_to "ログアウト", logout_path, method: :delete, class: "nav-link" %>
+      <% else %>
+        <%= link_to "新規登録", "#", class: "nav-link" %>
+        <%= link_to "ログイン", login_path, class: "nav-link" %>
+      <% end %>
+    </nav>
     <div class="container-fluid p-4 pt-2 text-dark bg-white">
       <h3 class="text-primary text-center">Let's comment!</h3>
       <% flash.each do |name, msg| %>
